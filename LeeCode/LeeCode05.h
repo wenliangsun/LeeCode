@@ -47,21 +47,34 @@ class LeeCode05 {
     }
 
     /**
-     * 最长公共子串法
-     */
-    string longestPalindrome02(string s) {}
-
-    /**
      * 中心扩展法
      */
-    string longestPalindrome03(string s) {
-        
+    string longestPalindrome02(string s) {
+        string res;
+        for (int i = 0; i < s.size(); i++) {
+            // 这样做可以同时处理奇数和偶数的情况
+            string s1 = palindrome(s, i, i);
+            string s2 = palindrome(s, i, i + 1);
+            res = res.size() > s1.size() ? res : s1;
+            res = res.size() > s2.size() ? res : s2;
+        }
+        return res;
     }
 
     /**
      * Manacher 法
      */
-    string longestPalindrome04(string s){
+    string longestPalindrome03(string s) {}
 
+   private:
+    /**
+     * 中心扩展
+     */
+    string palindrome(string s, int left, int right) {
+        while (left >= 0 && right < s.size() && s[left] == s[right]) {
+            left--;
+            right++;
+        }
+        return s.substr(left + 1, right - left - 1);
     }
 };

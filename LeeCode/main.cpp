@@ -3,6 +3,7 @@
 #include <map>
 #include <string>
 #include <vector>
+
 #include "LeeCode01.h"
 #include "LeeCode03.h"
 #include "LeeCode05.h"
@@ -62,15 +63,15 @@ int main() {
     // cout << res.size() << endl;
     // cout << res[0] << " " << res[1] << endl;
 
-    LeeCode03 coder3 = LeeCode03();
-    string str = "abba";
-    int res = coder3.lengthOfLongestSubstring2(str);
-    cout << res << endl;
+    // LeeCode03 coder3 = LeeCode03();
+    // string str = "abba";
+    // int res = coder3.lengthOfLongestSubstring2(str);
+    // cout << res << endl;
 
-    // LeeCode05 coder5 = LeeCode05();
-    // string str = "cbbd";
-    // string res = coder5.longestPalindrome(str);
-    // cout <<"######"<< str.substr(0,3) << endl;
+    LeeCode05 coder5 = LeeCode05();
+    string str = "cbbd";
+    string res = coder5.longestPalindrome02(str);
+    cout << res << endl;
 
     // LeeCode06 coder6 = LeeCode06();
     // string str = "LEETCODEISHIRING";

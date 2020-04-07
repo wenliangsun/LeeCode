@@ -1,4 +1,5 @@
 #include <stack>
+
 #include "ListNode.h"
 
 using namespace std;
@@ -48,7 +49,42 @@ class LeeCode25 {
     }
 
     /**
-     * 其他方法！！！
+     * 递归法
+     * 翻转前k个之后，翻转后面的链表变成了子问题
      */
-    ListNode* reverseKGroup02(ListNode* head, int k) {}
+    ListNode* reverseKGroup02(ListNode* head, int k) {
+        if (head == nullptr) {
+            return head;
+        }
+        ListNode *a, *b;
+        a = b = head;
+        // 寻找满足k的区间，不满足的话直接返回
+        for (int i = 0; i < k; i++) {
+            if (b == nullptr) {
+                return head;
+            }
+            b = b->next;
+        }
+        // 翻转区间
+        ListNode* newHead = reverse(a, b);
+        // 递归翻转之后的链表，并和之前的拼接起来
+        a->next = reverseKGroup02(b, k);
+        return newHead;
+    }
+
+   private:
+    /**
+     * 翻转区间[a,b), 左闭右开区间 和迭代法翻转链表类似
+     */
+    ListNode* reverse(ListNode* a, ListNode* b) {
+        ListNode* pre = nullptr;
+        ListNode* cur = a;
+        while (cur != b) {
+            ListNode* next = cur->next;
+            cur->next = pre;
+            pre = cur;
+            cur = next;
+        }
+        return pre;
+    }
 };

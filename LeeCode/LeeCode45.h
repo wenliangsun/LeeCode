@@ -33,8 +33,10 @@ class LeeCode45 {
         int end = 0;
         int maxPos = 0;
         for (int i = 0; i < nums.size() - 1; i++) {
+            // 记录i-end之间可以跳跃的最远步数
             maxPos = max(maxPos, nums[i] + i);
             // 注意这个条件判断！！！
+            // i和end标记了可以选择的跳跃步数
             if (i == end) {
                 end = maxPos;
                 res++;
