@@ -7,14 +7,14 @@
 using namespace std;
 
 /**
- * 中序遍历
+ * 先序遍历
  */
 class Solution {
    public:
     /**
      * 递归版本
      */
-    vector<int> inorderTraversal1(TreeNode* root) {
+    vector<int> preorderTraversal1(TreeNode* root) {
         if (root == nullptr) {
             return res;
         }
@@ -23,20 +23,25 @@ class Solution {
     }
 
     /**
-     * 非递归版  使用栈
+     * 非递归版本 使用栈
      */
-    vector<int> inorderTraversal2(TreeNode* root) {
-        stack<TreeNode*> stk;
+    vector<int> preorderTraversal2(TreeNode* root) {
         vector<int> res;
-        while (root != nullptr || stk.empty()) {
-            while (root) {
-                stk.push(root);
-                root = root->left;
-            }
-            root = stk.top();
+        if (root == nullptr) {
+            return res;
+        }
+        stack<TreeNode*> stk;
+        stk.push(root);
+        while (!stk.empty()) {
+            TreeNode* node = stk.top();
             stk.pop();
-            res.push_back(root->val);
-            root = root->right;
+            res.push_back(node->val);
+            if (node->right) {
+                stk.push(node->right);
+            }
+            if (node->left) {
+                stk.push(node->left);
+            }
         }
         return res;
     }
@@ -47,10 +52,8 @@ class Solution {
         if (root == nullptr) {
             return;
         }
-        DFS(root->left);
         res.push_back(root->val);
+        DFS(root->left);
         DFS(root->right);
     }
 };
-
-int main() {}
