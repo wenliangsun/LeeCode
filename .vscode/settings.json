@@ -3,6 +3,8 @@
         "iostream": "cpp",
         "new": "cpp",
         "unordered_map": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "stdexcept": "cpp",
+        "algorithm": "cpp"
     }
 }
