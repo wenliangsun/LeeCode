@@ -10,7 +10,6 @@ using namespace std;
 
 int main() {
     string a;
-    string b;
     cin >> a;
     int i = 0;
     int n = 1;
