@@ -4,6 +4,11 @@
 
 using namespace std;
 
+/**
+ * 最小编辑距离
+ * 
+ */
+
 class MinEditDistence {
    public:
     int minDistence(string s1, string s2) {

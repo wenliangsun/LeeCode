@@ -5,6 +5,10 @@
 
 using namespace std;
 
+/**
+ * 合法数独
+ */
+
 class Shudu {
    public:
     bool isValid(vector<string> nums) {
