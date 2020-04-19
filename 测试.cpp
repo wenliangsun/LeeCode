@@ -1,27 +1,30 @@
-#include <algorithm>
 #include <iostream>
 #include <string>
+#include <vector>
 
 using namespace std;
 
 int main() {
-    string num;
-    while (cin >> num) {
-        int res = 0;
-        if (num[0] > '1') {
-            res += pow(2, num.size()) - 1;
-        } else {
-            for (int i = 0; i < num.size(); i++) {
-                if (num[i] == '0')
-                    continue;
-                else if (num[i] == '1')
-                    res += pow(2, num.size() - i - 1);
-                else {
-                    res += pow(2, num.size() - i) - 1;
-                    break;
-                }
-            }
-        }
-        cout << res << endl;
+    // vector<int> v(10);
+    // cout << v.capacity() << endl;
+    // cout << v.size() << endl;
+    // v.push_back(1);
+    // cout << v.capacity() << endl;
+    // cout << v.size() << endl;
+
+    string s1 = "aa12345b";
+    int a = stoi(s1);
+    cout << a << endl;
+    // string s2 = "556678";
+    int b[s1.size()] = {0};
+    for (int i = 0; i < s1.size(); i++) {
+        cout << b[i] << ' ';
     }
+    // int dp[s1.size()][s2.size()] = {0};
+    // for (int i = 0; i < s1.size(); i++) {
+    //     for (int j = 0; j < s2.size(); j++) {
+    //         cout << dp[i][j] << ' ';
+    //     }
+    //     cout << endl;
+    // }
 }

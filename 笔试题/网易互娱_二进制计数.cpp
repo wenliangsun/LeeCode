@@ -22,7 +22,13 @@ int main() {
         unordered_set<int> s;
         for (int i = 0; i < n; i++) {
             cin >> n;
-            s.insert(n & (n - 1));
+            int cnt = 0;
+            // 统计n中1的个数
+            while (n) {
+                cnt++;
+                n = n & (n - 1);
+            }
+            s.insert(cnt);
         }
         cout << s.size() << endl;
     }
