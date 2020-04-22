@@ -5,7 +5,7 @@
 using namespace std;
 
 int main() {
-    // vector<int> v(10);
+    vector<int> v(10);
     // cout << v.capacity() << endl;
     // cout << v.size() << endl;
     // v.push_back(1);

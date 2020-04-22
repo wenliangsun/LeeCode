@@ -27,37 +27,20 @@ class Solution {
      */
     vector<vector<int>> levelOrder2(TreeNode* root) {
         vector<vector<int>> res;
-        if (root == nullptr) {
-            return res;
-        }
+        if (!root) return res;
         queue<TreeNode*> q;
         q.push(root);
-        q.push(nullptr);
-        bool finished = false;
-        vector<int> temp;
-        while (!q.empty()) {
-            if (finished) {
-                temp.clear();
-            }
-            TreeNode* node = q.front();
-            if (node != nullptr) {
-                temp.push_back(node->val);
-                if (node->left) {
-                    q.push(node->left);
-                }
-                if (node->right) {
-                    q.push(node->right);
-                }
+        while (q.size()) {
+            int len = q.size(); // 记录当前层有多少个结点！！
+            vector<int> tmp;
+            for (int i = 0; i < len; i++) {
+                auto t = q.front();
+                tmp.push_back(t->val);
                 q.pop();
-                finished = false;
-            } else {
-                res.push_back(temp);
-                q.pop();
-                if (!q.empty()) {
-                    q.push(nullptr);
-                }
-                finished = true;
+                if (t->left) q.push(t->left);
+                if (t->right) q.push(t->right);
             }
+            res.push_back(tmp);
         }
         return res;
     }

@@ -12,69 +12,47 @@ using namespace std;
 class Solution {
    public:
     string serialize(TreeNode* root) {
-        if (root == nullptr) {
-            return "";
-        }
-        DFSSerialize(root);
-        string res = "[";
-        for (auto s : temp) {
-            if (res == "[") {
-                res += s;
-            } else {
-                res += ',';
-                res += s;
-            }
-        }
-        res += ']';
+        string res;
+        DFSSerialize(root, res);
         return res;
     }
 
     TreeNode* deserialize(string data) {
-        if (data == "") {
-            return nullptr;
-        }
-        vector<string> nums;
-        string temp = "";
-        int i = 1;
-        while (i < data.size() - 1) {
-            if (data[i] == ',' || i == data.size() - 1) {
-                nums.push_back(temp);
-                temp.clear();
-                i++;
-            }
-            temp += data[i++];
-        }
-        vector<int> index(1, 0);
-        TreeNode* root = DFSDeserialize(nums, index);
-        return root;
+        int idx = 0;
+        return DFSDeserialize(data, idx);
     }
 
    private:
-    vector<string> temp;
-    void DFSSerialize(TreeNode* root) {
-        if (root == nullptr) {
-            temp.push_back("null");
+    void DFSSerialize(TreeNode* root, string& res) {
+        if (!root) {
+            res += "#,";
             return;
         }
-        temp.push_back(to_string(root->val));
-        DFSSerialize(root->left);
-        DFSSerialize(root->right);
+        res += to_string(root->val) + ',';
+        DFSSerialize(root->left, res);
+        DFSSerialize(root->right, res);
     }
 
-    TreeNode* DFSDeserialize(vector<string> data, vector<int> index) {
-        if (index[0] == data.size()) {
+    TreeNode* DFSDeserialize(string& data, int& idx) {
+        if (data[idx] == '#') {
+            idx += 2;
             return nullptr;
         }
-        if (data[index[0]] == "null") {
-            index[0]++;
-            return nullptr;
+        int t = 0;
+        bool is_minus = false;
+        if (data[idx] == '-') {
+            is_minus = true;
+            idx++;
         }
-        TreeNode* root = new TreeNode(stoi(data[index[0]]));
-        index[0]++;
-        root->left = DFSDeserialize(data, index);
-        root->right = DFSDeserialize(data, index);
+        while (data[idx] != ',') {
+            t = t * 10 + data[idx] - '0';
+            idx++;
+        }
+        idx++;  // 跳过逗号
+        if (is_minus) t = -t;
+        auto root = new TreeNode(t);
+        root->left = DFSDeserialize(data, idx);
+        root->right = DFSDeserialize(data, idx);
         return root;
     }
 };
-
-int main() { Solution s = Solution(); }
