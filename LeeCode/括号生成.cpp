@@ -80,9 +80,6 @@ class LeeCode22 {
             res.push_back(curStr);
             return;
         }
-        if (left > right) {  // 不符合
-            return;
-        }
         if (left > 0) {  // 生成左分支的条件
             // 注意回溯法的传参方法，保证了不破坏当前的curStr
             DFS1(curStr + '(', left - 1, right, res);
@@ -99,9 +96,6 @@ class LeeCode22 {
     void DFS2(string curStr, int left, int right, int n, vector<string>& res) {
         if (left == n && right == n) {
             res.push_back(curStr);
-            return;
-        }
-        if (left < right) {
             return;
         }
         if (left < n) {

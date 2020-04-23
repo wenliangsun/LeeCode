@@ -1,7 +1,7 @@
 #include "ListNode.h"
 
 /**
- * 题目82：删除排序链表中的重复元素
+ * 题目82：删除排序链表中的重复元素II
  */
 class LeeCode82 {
    public:

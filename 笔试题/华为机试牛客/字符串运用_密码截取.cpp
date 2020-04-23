@@ -34,7 +34,7 @@ int main() {
         // }
         // cout << res << endl;
 
-        // 中线扩展法
+        // 中心扩展法
         int res = 0;
         for (int i = 0; i < s.size(); i++) {
             res = max(res, helper(s, i, i));

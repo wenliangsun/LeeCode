@@ -41,7 +41,7 @@ class LeeCode39 {
                 break;
             }
             path.push_back(candidates[i]);
-            DFS1(candidates, residue - candidates[i], 0, path);
+            DFS1(candidates, residue - candidates[i], i, path);
             path.pop_back();
         }
     }
