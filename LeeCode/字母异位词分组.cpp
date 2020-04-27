@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <map>
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 using namespace std;
@@ -11,6 +12,18 @@ using namespace std;
 class LeeCode49 {
    public:
     vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        unordered_map<string, vector<string>> hash;
+        for (auto str : strs) {
+            string key = str;
+            sort(key.begin(), key.end());
+            hash[key].push_back(str);
+        }
+        vector<vector<string>> res;
+        for (auto item : hash) res.push_back(item.second);
+        return res;
+    }
+
+    vector<vector<string>> groupAnagrams2(vector<string>& strs) {
         vector<vector<string>> res;
         if (strs.empty()) {
             return res;
