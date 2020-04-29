@@ -54,3 +54,38 @@ int main() {
         cout << res << endl;
     }
 }
+
+作者：Mr.森.
+链接：https://www.nowcoder.com/discuss/418770?type=1
+来源：牛客网
+
+from collections import defaultdict
+  
+T = int(input())
+for i in range(T):
+    graph = defaultdict(list)
+    sts = set()
+     
+    n = int(input())
+    for j in range(n):
+        a, b = map(int, input().split())
+        graph[a].append(b)
+        graph[b].append(a)
+        sts.add(a)
+        sts.add(b)
+ 
+    res = 1
+    vis = set()    #vis:全局浏览记录
+    for i in sts:
+        if i in vis:continue
+        q = [i]     #q:队列，广度优先搜索
+        vis1=set()    #vis1:该圈浏览记录
+        while q:
+            x = q.pop(0)
+            vis.add(x)
+            vis1.add(x)
+            for y in graph[x]:
+                if not y in vis1:
+                    q.append(y)
+        res = max(res, len(vis1))
+    print(res)

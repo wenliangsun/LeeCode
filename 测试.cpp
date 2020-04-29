@@ -1,11 +1,22 @@
 #include <iostream>
+#include <map>
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 using namespace std;
 
+typedef pair<int, int> PII;
+
 int main() {
-    vector<int> v(10);
+    map<vector<int>, int> hash;
+    vector<int> t = {1, 2, 3};
+    vector<int> t2 = {1, 2, 3};
+    hash[t]++;
+    hash[t2]++;
+    cout << hash.size();
+
+    // vector<int> v(10);
     // cout << v.capacity() << endl;
     // cout << v.size() << endl;
     // v.push_back(1);
@@ -28,9 +39,9 @@ int main() {
     //     cout << endl;
     // }
 
-    char str1[100] = "Hello\0\0hello";
-    cout << str1 << endl;
-    char str2[100] = "Helloworld";
-    str2[4] = '\0';
-    cout << str2 << endl;
+    // char str1[100] = "Hello\0\0hello";
+    // cout << str1 << endl;
+    // char str2[100] = "Helloworld";
+    // str2[4] = '\0';
+    // cout << str2 << endl;
 }
