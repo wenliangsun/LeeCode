@@ -1,8 +1,130 @@
-#include <vector>
+#include <iostream>
 
 using namespace std;
 
+/**
+ * vector 底层实现
+ */
+
+template <typename T>
+
+class MyVector {
+   public:
+    // 无参构造初始化
+    MyVector() : p(nullptr), cap(0), sz(0) {}
+    // 有参构造的初始化方式
+    MyVector(int size, T data) {
+        this->cap = 20 + size;
+        this->sz = size;
+        this->p = new T[this->cap];
+        for (int i = 0; i < this->sz; i++) {
+            this->p[i] = data;
+        }
+    }
+
+    // 析构函数，释放掉唯一的指针
+    ~MyVector() {
+        if (p != nullptr) {
+            delete[] p;
+        }
+    }
+
+    // 拷贝构造函数
+    MyVector(const MyVector& v) {
+        this->cap = v.capacity();
+        this->sz = v.size();
+        this->p = new T[this->cap];
+        memcpy(this->p, v.p, this->sz * sizeof(T));
+    }
+
+    // 插入，要判断溢出没
+    void push_back(T data) {
+        if (this->p == nullptr) {
+            this->cap = 20;
+            this->sz = 0;
+            this->p = new T[this->cap];
+        }
+        if (this->sz == this->cap) {
+            T* new_p = new T[this->cap * 2];
+            memcpy(new_p, this->p, this->sz * sizeof(T));
+            this->cap *= 2;
+            delete[] p;
+            this->p = new_p;
+        }
+        this->p[this->sz] = data;
+        this->sz++;
+    }
+
+    // 删除最后一个元素
+    void pop_back() {
+        if (this->sz > 1) {
+            this->p[this->sz - 1] = 0;
+            this->sz--;
+        }
+    }
+
+    // 插入
+    void insert(int pos, int data) {
+        if (pos >= 0 && pos <= this->sz) {
+            if (this->sz == this->cap) {
+                T* new_p = new T[this->cap * 2];
+                memcpy(new_p, this->p, this->sz * sizeof(T));
+                this->cap * 2;
+                delete[] p;
+                this->p = new_p;
+            }
+            for (int i = this->sz; i > pos; i--) {
+                this->p[i] = this->p[i - 1];
+            }
+            this->p[pos] = data;
+            this->sz++;
+        }
+    }
+
+    //清除，假装清除了
+    void clear() { this->sz == 0; }
+
+    // 重载[]运算符，可以用[]修改函数
+    T& operator[](int index) {
+        if (index >= 0 && index < this->sz) {
+            return this->p[index];
+        }
+    }
+
+    // 重载=运算符，其实和拷贝构造函数一样
+    void operator=(const MyVector& v) {
+        if (p != nullptr) {
+            delete[] p;
+            this->cap = 0;
+            this->sz = 0;
+            this->p = nullptr;
+        }
+        this->cap = v.capacity();
+        this->sz = v.size();
+        this->p = new T[this->cap];
+        memcpy(this->p, v.p, this->sz * sizeof(T));
+    }
+
+    int size() { return this->sz; }
+
+    int capacity() { return this->cap; }
+
+   private:
+    T* p;
+    int cap;
+    int sz;
+};
+
 int main() {
-    vector<int> v;
+    MyVector<int> mv(3, 0);
+    mv.push_back(34);
+    mv.push_back(22);
+    mv.push_back(10);
+    mv.pop_back();
+    mv.insert(2, 100);
+    for (int i = 0; i < mv.size(); i++) {
+        cout << mv[i] << endl;
+    }
+
     return 0;
 }

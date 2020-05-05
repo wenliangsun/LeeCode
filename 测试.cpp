@@ -9,12 +9,20 @@ using namespace std;
 typedef pair<int, int> PII;
 
 int main() {
-    map<vector<int>, int> hash;
-    vector<int> t = {1, 2, 3};
-    vector<int> t2 = {1, 2, 3};
-    hash[t]++;
-    hash[t2]++;
-    cout << hash.size();
+    // map<vector<int>, int> hash;
+    // vector<int> t = {1, 2, 3};
+    // vector<int> t2 = {1, 2, 4};
+    // bool res = t==t2;
+    // cout<<res<<endl;
+
+    string a = "aaabbb";
+    string b = "aaabbbccc";
+    bool res =  a < b;
+    cout << res << endl;
+
+    // hash[t]++;
+    // hash[t2]++;
+    // cout << hash.size();
 
     // vector<int> v(10);
     // cout << v.capacity() << endl;
