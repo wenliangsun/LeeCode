@@ -8,6 +8,8 @@ using namespace std;
 
 typedef pair<int, int> PII;
 
+int gcd(int a, int b) { return b ? gcd(b, a % b) : a; }
+
 int main() {
     // map<vector<int>, int> hash;
     // vector<int> t = {1, 2, 3};
@@ -15,10 +17,17 @@ int main() {
     // bool res = t==t2;
     // cout<<res<<endl;
 
-    string a = "aaabbb";
-    string b = "aaabbbccc";
-    bool res =  a < b;
+    // vector<string> s;
+    // s.push_back("");
+    // cout << s.size();
+
+    int res = gcd(4, 6);
     cout << res << endl;
+
+    // string a = "aaabbb";
+    // string b = "aaabbbccc";
+    // bool res =  a < b;
+    // cout << res << endl;
 
     // hash[t]++;
     // hash[t2]++;
