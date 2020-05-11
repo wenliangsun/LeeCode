@@ -21,8 +21,8 @@ int main() {
     // s.push_back("");
     // cout << s.size();
 
-    int res = gcd(4, 6);
-    cout << res << endl;
+    // int res = gcd(4, 6);
+    // cout << res << endl;
 
     // string a = "aaabbb";
     // string b = "aaabbbccc";
