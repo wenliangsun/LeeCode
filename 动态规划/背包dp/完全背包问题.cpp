@@ -2,6 +2,10 @@
 
 using namespace std;
 
+/**
+ * 完全背包问题
+ */
+
 const int N = 10010;
 
 int n, m;

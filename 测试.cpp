@@ -17,6 +17,10 @@ int main() {
     // bool res = t==t2;
     // cout<<res<<endl;
 
+    unordered_map<char, int> m;
+    m['a'] = 1;
+    cout << m.size() << endl;
+
     // vector<string> s;
     // s.push_back("");
     // cout << s.size();

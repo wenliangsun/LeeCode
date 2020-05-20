@@ -2,6 +2,10 @@
 
 using namespace std;
 
+/**
+ * 分组背包问题
+ */
+
 const int N = 110;
 
 int n, m;

@@ -3,7 +3,9 @@
 using namespace std;
 
 /**
- * 是0-1背包问题的扩展版本
+ * 多重背包问题I 是0-1背包问题的扩展版本
+ * 
+ * 时间复杂度：O(n^3)
  */
 
 const int N = 110;
@@ -31,6 +33,7 @@ int main() {
         int v, w, s;
         cin >> v >> w >> s;
         for (int j = m; j >= 0; j--) {
+            // 这儿有s种决策
             for (int k = 1; k <= s && k * v <= j; k++)
                 f[j] = max(f[j], f[j - k * v] + k * w);
         }

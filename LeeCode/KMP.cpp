@@ -33,7 +33,7 @@ class KMP {
         int j = 0;
         for (int i = 0; i < N; i++) {
             // 计算pattern的下一个状态
-            j = dp[j][str[j]];
+            j = dp[j][str[i]];
             // 如果pattern到达终点，匹配成功，返回结果
             if (j == M) {
                 return i - M + 1;
