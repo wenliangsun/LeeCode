@@ -21,4 +21,17 @@ class Solution {
         }
         return nums[l];
     }
+
+    int minArray(vector<int>& numbers) {
+        int n = numbers.size();
+        int l = 0, r = n - 1;
+        while(l < r){
+            int mid = l + r >> 1;
+            // 可以处理 [1,3,3] 和 [3,1,3] 这种情况
+            if(numbers[mid] < numbers[r])r = mid;
+            else if(numbers[mid]>numbers[r])l = mid + 1;
+            else r--;
+        }
+        return numbers[l];
+    }
 };

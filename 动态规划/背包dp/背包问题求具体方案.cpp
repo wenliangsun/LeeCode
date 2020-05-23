@@ -26,7 +26,7 @@ int main() {
     int vol = m;
     // 求具体方案
     for (int i = 1; i <= n; i++) {
-        if (vol > v[i] && dp[i][vol] == dp[i + 1][vol - v[i]] + w[i]) {
+        if (vol >= v[i] && dp[i][vol] == dp[i + 1][vol - v[i]] + w[i]) {
             cout << i << ' ';
             vol -= v[i];
         }
