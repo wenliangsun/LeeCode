@@ -1,5 +1,4 @@
-#include <deque>
-#include <vector>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -9,48 +8,21 @@ using namespace std;
 class LeeCode239 {
    public:
     /**
-     * 思路：单调队列
+     * 思路：维护一个单调队列
      */
     vector<int> maxSlidingWindow(vector<int>& nums, int k) {
         vector<int> res;
-        if (nums.size() == 0 || k <= 0) {
-            return res;
-        }
+        deque<int> q;
         for (int i = 0; i < nums.size(); i++) {
-            if (i < k - 1) {  // 先k-1个入队
-                pushNum(nums[i]);
-            } else {  // 右移窗口
-                pushNum(nums[i]);
-                res.push_back(maxNum());
-                popNum(nums[i - k + 1]);
-            }
+            // 队列不为空，并且窗口滑动到需要出队头，则队头出队
+            if (q.size() && i - k + 1 > q.front()) q.pop_front();
+            // 如果队尾元素小于等于当前元素，则队尾元素出队
+            while (q.size() && nums[q.back()] <= nums[i]) q.pop_back();
+            // 否则将当前元素入队
+            q.push_back(i);
+            // 如果窗口大小达到k了，则开始输出结果
+            if (i >= k - 1) res.push_back(nums[q.front()]);
         }
         return res;
-    }
-
-   private:
-    deque<int> data;
-    /**
-     * 维护一个单调递减的队列
-     */
-    void pushNum(int n) {
-        while (!data.empty() && data.back() < n) {
-            data.pop_back();
-        }
-        data.push_back(n);
-    }
-
-    /**
-     * 返回最大值
-     */
-    int maxNum() { return data.front(); }
-
-    /**
-     * 删除数
-     */
-    int popNum(int n) {
-        if (!data.empty() && data.front() == n) {
-            data.pop_front();
-        }
     }
 };

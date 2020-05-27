@@ -1,72 +1,44 @@
-#include <iostream>
-#include <map>
-#include <string>
-#include <unordered_map>
-#include <vector>
+#include <bits/stdc++.h>
 
 using namespace std;
 
 typedef pair<int, int> PII;
+typedef long long LL;
 
 int gcd(int a, int b) { return b ? gcd(b, a % b) : a; }
 
+bool isSqrt(int n) {
+    if (!n) return true;
+    int l = 1, r = n;
+    while (l < r) {
+        int mid = l + r + 1ll >> 1;
+        if ((long)mid * mid < n)
+            l = mid;
+        else
+            r = mid - 1;
+    }
+    return l * l == n;
+}
+
+bool isSqrt2(int n) {
+    for (int i = 1; n > 0; i += 2) {
+        n -= i;
+    }
+    return n == 0;
+}
+
+
+
 int main() {
-    // map<vector<int>, int> hash;
-    // vector<int> t = {1, 2, 3};
-    // vector<int> t2 = {1, 2, 4};
-    // bool res = t==t2;
-    // cout<<res<<endl;
-
-    // unordered_map<char, int> m;
-    // m['a'] = 1;
-    // cout << m.size() << endl;
-
-    string a = "aaaab";
-    a.pop_back();
-    cout << a << endl;
-
-    // vector<string> s;
-    // s.push_back("");
-    // cout << s.size();
-
-    // int res = gcd(4, 6);
-    // cout << res << endl;
-
-    // string a = "aaabbb";
-    // string b = "aaabbbccc";
-    // bool res =  a < b;
-    // cout << res << endl;
-
-    // hash[t]++;
-    // hash[t2]++;
-    // cout << hash.size();
-
-    // vector<int> v(10);
-    // cout << v.capacity() << endl;
-    // cout << v.size() << endl;
-    // v.push_back(1);
-    // cout << v.capacity() << endl;
-    // cout << v.size() << endl;
-
-    // string s1 = "aa12345b";
-    // int a = stoi(s1);
-    // cout << a << endl;
-    // // string s2 = "556678";
-    // int b[s1.size()] = {0};
-    // for (int i = 0; i < s1.size(); i++) {
-    //     cout << b[i] << ' ';
-    // }
-    // int dp[s1.size()][s2.size()] = {0};
-    // for (int i = 0; i < s1.size(); i++) {
-    //     for (int j = 0; j < s2.size(); j++) {
-    //         cout << dp[i][j] << ' ';
-    //     }
-    //     cout << endl;
-    // }
-
-    // char str1[100] = "Hello\0\0hello";
-    // cout << str1 << endl;
-    // char str2[100] = "Helloworld";
-    // str2[4] = '\0';
-    // cout << str2 << endl;
+    string s = "abcbcbacbcdacb";
+    int m = 0;
+    for (char c : s) {
+        if (m & (1 << (c - 'a'))) {
+            cout << "False" << endl;
+            break;
+        }
+        m |= (1 << (c - 'a'));
+        cout << m << endl;
+    }
+    return 0;
 }
