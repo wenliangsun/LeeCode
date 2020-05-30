@@ -1,7 +1,4 @@
-#include <algorithm>
-#include <iostream>
-#include <string>
-#include <vector>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -14,14 +11,13 @@ using namespace std;
 int main() {
     int T;
     cin >> T;
-    vector<string> nums;
+    vector<string> tmp;
     while (T--) {
         string s;
         cin >> s;
-        nums.push_back(s.substr(s.size() - 6));
+        tmp.push_back(s.substr(s.size() - 6));
     }
-    sort(nums.begin(), nums.end());
-    for (int i = 0; i < nums.size(); i++) {
-        cout << nums[i] << endl;
-    }
+    sort(tmp.begin(), tmp.end());
+    for (auto t : tmp) cout << t << endl;
+    return 0;
 }

@@ -40,4 +40,26 @@ class LeeCode354 {
         }
         return res;
     }
+
+    /**
+     * 时间复杂度：O(nlogn) 最长上升子序列采用二分查找的思路
+     */
+    int maxEnvelopes(vector<vector<int>>& e) {
+        sort(e.begin(), e.end(), compare);
+        vector<int> dp(e.size());
+        int len = 0;
+        for (int i = 0; i < e.size(); i++) {
+            int l = 0, r = len;
+            while (l < r) {
+                int mid = l + r >> 1;
+                if (dp[mid] >= e[i][1])
+                    r = mid;
+                else
+                    l = mid + 1;
+            }
+            if (l == len) len++;
+            dp[l] = e[i][1];
+        }
+        return len;
+    }
 };

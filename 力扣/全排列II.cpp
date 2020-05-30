@@ -31,8 +31,8 @@ class LeeCode47 {
             return;
         }
         for (int i = 0; i < nums.size(); i++) {
-            // 注意这儿used[i-1]前面加不加!都可以，再理解一下！！！
-            if (used[i] || (i > 0 && nums[i] == nums[i - 1] && used[i - 1])) {
+            // 注意这儿used[i-1]前面加不加!都可以，加!是比较合理的而且剪枝的更彻底，速度更快
+            if (used[i] || (i > 0 && nums[i] == nums[i - 1] && !used[i - 1])) {
                 continue;
             }
             path.push_back(nums[i]);

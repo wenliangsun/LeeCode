@@ -63,11 +63,6 @@ class NewCoder67 {
         return temp[number];  // 饭后记录的最优解
     }
 
-    /**
-     * 找规律法
-     */
-    int cutRope04(int number) { return 0; }
-
    private:
     int cutRope02Core(int number, int* temp) {
         if (number == 2) {

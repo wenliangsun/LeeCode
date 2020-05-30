@@ -13,6 +13,10 @@ class Solution {
      */
     int maxLength(vector<string>& arr) { return dfs(arr, 0, 0); }
 
+    /**
+     * idx: 数组中的当前索引
+     * m: 表示已经拼接的字符串的字符状态
+     */
     int dfs(vector<string>& arr, int idx, int m) {
         if (idx == arr.size()) return 0;
         int t = m;  // 记录状态

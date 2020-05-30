@@ -22,7 +22,7 @@ class Solution {
 
     void dfs(string& tiles) {
         for (int i = 0; i < tiles.size(); i++) {
-            if (i > 0 && tiles[i] == tiles[i - 1] && st[i - 1]) continue;
+            if (i > 0 && tiles[i] == tiles[i - 1] && !st[i - 1]) continue;
             if (!st[i]) {
                 st[i] = true;
                 res++;

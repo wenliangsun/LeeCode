@@ -37,8 +37,6 @@ class Solution {
             if (t > INT_MAX) break;   // 如果当前数字大于 INT_MAX 剪枝
             // 如果前两项的和大于 INT_MAX 剪枝
             if (n >= 2 && (long long)path[n - 1] + path[n - 2] > INT_MAX) break;
-            // 如果当前数字大于前两项的和 剪枝
-            if (n >= 2 && t > (long long)path[n - 1] + path[n - 2]) break;
             // 如果满足条件  则dfs
             if (n <= 1 || t == path[n - 1] + path[n - 2]) {
                 path.push_back(t);

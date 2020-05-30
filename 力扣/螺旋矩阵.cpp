@@ -8,7 +8,31 @@ using namespace std;
 class LeeCode54 {
    public:
     /**
-     * 注意边界情况
+     * 模拟法 代码简洁
+     */
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        vector<int> res;
+        if (!matrix.size()) return res;
+        int n = matrix.size(), m = matrix[0].size();
+        vector<vector<bool>> st(n, vector<bool>(m));
+        int dx[4] = {0, 1, 0, -1}, dy[4] = {1, 0, -1, 0};
+        int x = 0, y = 0, d = 0;  // d用来表示方向
+        for (int i = 1; i <= n * m; i++) {
+            int nx = x + dx[d], ny = y + dy[d];  //计算下一个位置
+            // 如果超出边界，则需要换方向
+            if (nx < 0 || nx >= n || ny < 0 || ny >= m || st[nx][ny]) {
+                d = (d + 1) % 4;  // 更换方向
+                nx = x + dx[d], ny = y + dy[d];
+            }
+            res.push_back(matrix[x][y]);
+            st[x][y] = true;
+            x = nx, y = ny;
+        }
+        return res;
+    }
+
+    /**
+     * 模拟法  代码复杂！！！
      */
     vector<int> spiralOrder(vector<vector<int>>& matrix) {
         if (matrix.size() == 0) {

@@ -47,7 +47,7 @@ class LeeCode50 {
             }
             temp *= temp;
         }
-        return res;
+        return n > 0 ? res : 1 / res;
     }
 
    private:

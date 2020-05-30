@@ -1,0 +1,57 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+class Solution {
+   public:
+    /**
+     * 直接对奇数位进行交换 会改变奇和奇数、偶数和偶数的相对位置
+     * 时间复杂度：O(n)
+     */
+    vector<int> exchange(vector<int>& nums) {
+        int idx = nums.size() - 1;
+        for (int i = 0; i < nums.size(); i++) {
+            // 这个操作注意下一
+            while (nums[i] % 2 == 0 && i > idx) swap(nums[i], nums[idx--]);
+        }
+        return nums;
+    }
+
+    /**
+     * 双指针 会改变奇和奇数、偶数和偶数的相对位置
+     */
+    vector<int> exchange(vector<int>& nums) {
+        int l = 0, r = nums.size() - 1;
+        while (l < r) {
+            if (nums[l] & 1) {
+                l++;
+                continue;
+            }
+            if (!(nums[r] & 1)) {
+                r--;
+                continue;
+            }
+            swap(nums[l++], nums[r--]);
+        }
+        return nums;
+    }
+    /**
+     * 还可以采用冒泡排序的思想，将偶数冒泡到数组的最后 这样做不会改变奇数和奇数
+     * 偶数和偶数的相对位置
+     * 时间复杂度：O(n^2)
+     */
+
+    /**
+     * 新开一个数组, 不会改变奇数和奇数 偶数和偶数的相对位置
+     * 时间复杂度：O(n)
+     * 空间复杂度：O(n)
+     */
+    vector<int> exchange(vector<int>& nums) {
+        vector<int> res;
+        for (auto n : nums)
+            if (n & 1) res.push_back(n);
+        for (auto n : nums)
+            if (!(n & 1)) res.push_back(n);
+        return res;
+    }
+};

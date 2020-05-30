@@ -59,7 +59,8 @@
         "scoped_allocator": "cpp",
         "thread": "cpp",
         "typeindex": "cpp",
-        "valarray": "cpp"
+        "valarray": "cpp",
+        "random": "cpp"
     },
     "python.pythonPath": "C:\\Users\\wenliangsun\\AppData\\Local\\conda\\conda\\envs\\csp\\python.exe"
 }
