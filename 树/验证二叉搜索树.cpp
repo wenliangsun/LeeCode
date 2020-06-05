@@ -10,7 +10,6 @@ class Solution {
    public:
     bool isValidBST(TreeNode* root) { return dfs(root, INT_MIN, INT_MAX); }
 
-   private:
     bool dfs(TreeNode* root, long long minV, long long maxV) {
         if (!root) return true;
         if (root->val < minV || root->val > maxV) return false;

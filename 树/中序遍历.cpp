@@ -28,7 +28,7 @@ class Solution {
     vector<int> inorderTraversal2(TreeNode* root) {
         stack<TreeNode*> stk;
         vector<int> res;
-        while (root != nullptr || stk.empty()) {
+        while (root != nullptr || !stk.empty()) {
             while (root) {
                 stk.push(root);
                 root = root->left;
