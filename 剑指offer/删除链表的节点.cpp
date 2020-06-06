@@ -21,7 +21,7 @@ class Solution {
         while (cur) {
             if (cur->val == val) {
                 pre->next = cur->next;
-                break;
+                cur = cur->next;
             }
             cur = cur->next;
             pre = pre->next;
