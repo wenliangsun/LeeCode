@@ -24,9 +24,9 @@ class LeeCode113 {
    private:
     vector<vector<int>> res;
     /**
-     * 实质是二叉树的先序遍历
+     * 回溯法
      */
-    void helper(TreeNode* root, int sum, vector<int> path) {
+    void helper(TreeNode* root, int sum, vector<int>& path) {
         if (root == nullptr) {
             return;
         }
@@ -39,5 +39,6 @@ class LeeCode113 {
         }
         helper(root->left, sum - root->val, path);
         helper(root->right, sum - root->val, path);
+        path.pop_back();
     }
 };

@@ -1,6 +1,4 @@
-#include <queue>
-#include <stack>
-#include <vector>
+#include <bits/stdc++.h>
 
 #include "TreeNode.h"
 
@@ -11,6 +9,30 @@ using namespace std;
  */
 class LeeCode107 {
    public:
+    /**
+     * 不利用栈数据结构，直接将层序遍历的结果翻转
+     */
+    vector<vector<int>> levelOrderBottom(TreeNode* root) {
+        vector<vector<int>> res;
+        if (!root) return res;
+        queue<TreeNode*> q;
+        q.push(root);
+        while (q.size()) {
+            vector<int> t;
+            int len = 0;
+            for (int i = 0; i < len; i++) {
+                auto node = q.front();
+                q.pop();
+                t.push_back(node->val);
+                if (node->left) q.push(node->left);
+                if (node->right) q.push(node->right);
+            }
+            res.push_back(t);
+        }
+        reverse(res.begin(), res.end());
+        return res;
+    }
+
     /**
      * 思路：利用队列进行层次遍历二叉树，然后利用栈实现翻转
      */

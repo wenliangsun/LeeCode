@@ -27,18 +27,27 @@ bool isSqrt2(int n) {
     return n == 0;
 }
 
-
+struct Node {
+    int val;
+    int idx;
+    Node* next;
+};
 
 int main() {
-    string s = "abcbcbacbcdacb";
-    int m = 0;
-    for (char c : s) {
-        if (m & (1 << (c - 'a'))) {
-            cout << "False" << endl;
-            break;
-        }
-        m |= (1 << (c - 'a'));
-        cout << m << endl;
-    }
+    map<PII, int> a;
+    PII t;
+    t.first = 10, t.second = 20;
+    cout << a[t] << endl;
+    // cout << a->val << endl;
+    // string s = "abcbcbacbcdacb";
+    // int m = 0;
+    // for (char c : s) {
+    //     if (m & (1 << (c - 'a'))) {
+    //         cout << "False" << endl;
+    //         break;
+    //     }
+    //     m |= (1 << (c - 'a'));
+    //     cout << m << endl;
+    // }
     return 0;
 }

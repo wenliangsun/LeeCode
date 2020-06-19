@@ -2,6 +2,10 @@
 
 using namespace std;
 
+/**
+ * 题目138：复制带随机指针的链表
+ */
+
 class Node {
    public:
     int val;
@@ -23,38 +27,33 @@ class Solution {
      * A-A'-B-B'-C-C'-D-D'-nullptr
      * 然后根据越来链表的random指针调整复制的结点之间的random指针
      * 最后将这个链表拆分成两个链表
-     * 
+     *
      * 时间复杂度：O(N)
      * 空间复杂度：O(1)
      */
     Node* copyRandomList(Node* head) {
-        if (!head) return nullptr;
-        Node* ptr = head;
         // 复制结点
-        while (ptr != nullptr) {
-            Node* newNode = new Node(ptr->val);
-            newNode->next = ptr->next;
-            ptr->next = newNode;
-            ptr = newNode->next;
+        for (auto p = head; p;) {
+            auto np = new Node(p->val);
+            auto next = p->next;
+            p->next = np;
+            np->next = next;
+            p = next;
         }
-        ptr = head;
-        // 调整复制结点的random指针
-        while (ptr != nullptr) {
-            ptr->next->random = ptr->random ? ptr->random->next : nullptr;
-            ptr = ptr->next->next;
+        // 更新复制结点的random指针
+        for (auto p = head; p; p = p->next->next)
+            if (p->random) p->next->random = p->random->next;
+        // 拆分链表
+        auto dummy = new Node(-1);
+        auto cur = dummy;
+        for (auto p = head; p;) {
+            auto pre = p;  // 复原原来的链表
+            cur->next = p->next;
+            cur = cur->next;
+            p = p->next->next;
+            pre->next = p;
         }
-
-        Node* pOldNode = head;
-        Node* pNewNode = head->next;
-        Node* newHead = head->next;
-        // 拆分
-        while (pOldNode != nullptr) {
-            pOldNode->next = pOldNode->next->next;
-            pNewNode->next = pNewNode->next ? pNewNode->next->next : nullptr;
-            pOldNode = pOldNode->next;
-            pNewNode = pNewNode->next;
-        }
-        return newHead;
+        return dummy->next;
     }
 
     /**

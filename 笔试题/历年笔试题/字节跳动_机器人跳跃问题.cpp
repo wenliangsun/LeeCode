@@ -1,4 +1,4 @@
-#include <iostream>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -17,11 +17,17 @@ using namespace std;
 const int N = 100010;
 
 int n;
-int a[N];
+int h[N];
 
+/**
+ * h[i] < e : e = e + e - h[i] = 2 * e -h[i];
+ * h[i] > e : e = e - (h[i] - e) = 2 * e - h[i];
+ * 综上，e = 2 * e - h[i];
+ * 主要是这个check函数的定义
+ */
 bool check(int e) {
     for (int i = 0; i < n; i++) {
-        e = 2 * e - a[i];
+        e = 2 * e - h[i];
         if (e > N) return true;
         if (e < 0) return false;
     }
@@ -30,9 +36,7 @@ bool check(int e) {
 
 int main() {
     cin >> n;
-    for (int i = 0; i < n; i++) {
-        cin >> a[i];
-    }
+    for (int i = 0; i < n; i++) cin >> h[i];
     int l = 1, r = 1e5;
     while (l < r) {
         int mid = l + r >> 1;
@@ -41,5 +45,6 @@ int main() {
         else
             l = mid + 1;
     }
-    cout << r << endl;
+    cout << l << endl;
+    return 0;
 }
