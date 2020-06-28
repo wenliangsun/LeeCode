@@ -4,50 +4,45 @@
 using namespace std;
 
 /**
- * 题目39：组合总和
+ * 题目40：组合总和II
  */
-class LeeCode39 {
+class LeeCode40 {
    public:
     /**
-     * 思路：回溯法+剪枝加速
-     * 类似于括号生成那题，使用深度优先搜索，做减法
+     * 思路：回溯法
+     * 采用深度优先算法，做减法
      */
-    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
         if (candidates.size() == 0) {
             return res;
         }
         vector<int> path;
-        // sort(candidates.begin(), candidates.end());
+        sort(candidates.begin(), candidates.end());
         DFS2(candidates, target, 0, path);
         return res;
     }
 
    private:
     vector<vector<int>> res;
-    /**
-     * 需要对数组排序
-     */
+    // 不用对数组排序，会有重复的组合
     void DFS1(vector<int> candidates, int residue, int begin,
               vector<int> path) {
-        // 当剩余数为0时，表示当前路径可行
         if (residue == 0) {
             res.push_back(path);
             return;
         }
-        //去重复，重复的原因是在较深层的结点值考虑了之前考虑过的元素，
-        // 因此我们需要设置“下一轮搜索的起点”即可。 再思考思考！！！！
         for (int i = begin; i < candidates.size(); i++) {
-            if (residue - candidates[i] < 0) {
-                break;
+            if (candidates[i] <= residue) {
+                path.push_back(candidates[i]);
+                // 注意这儿不能重复使用数组元素，因此从下一个索引开始
+                DFS1(candidates, residue - candidates[i], i + 1, path);
+                path.pop_back();
             }
-            path.push_back(candidates[i]);
-            DFS1(candidates, residue - candidates[i], i, path);
-            path.pop_back();
         }
     }
 
     /**
-     * 不需要对数组排序
+     * 需要对数组进行排序
      */
     void DFS2(vector<int> candidates, int residue, int begin,
               vector<int> path) {
@@ -56,10 +51,11 @@ class LeeCode39 {
             return;
         }
         for (int i = begin; i < candidates.size(); i++) {
-            // 注意这儿与需要排序的区别！！！
+            // 如果当前候选数字已经出现过,则跳过，小剪枝
+            if (i > begin && candidates[i] == candidates[i - 1]) continue;
             if (candidates[i] <= residue) {
                 path.push_back(candidates[i]);
-                DFS2(candidates, residue - candidates[i], i, path);
+                DFS2(candidates, residue - candidates[i], i + 1, path);
                 path.pop_back();
             }
         }
