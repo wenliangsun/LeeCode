@@ -21,8 +21,7 @@ class Solution {
         for (int i = 1; i <= w1.size(); i++) {
             for (int j = 1; j <= w2.size(); j++) {
                 dp[i][j] = min(dp[i - 1][j], dp[i][j - 1]) + 1;
-                dp[i][j] =
-                    min(dp[i][j], dp[i - 1][j - 1] + (w1[i - 1] == w2[j - 1]));
+                dp[i][j] = min(dp[i][j], dp[i - 1][j - 1] + (w1[i - 1] == w2[j - 1]));
             }
         }
         return dp[w1.size()][w2.size()];

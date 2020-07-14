@@ -3,33 +3,31 @@
 using namespace std;
 
 /**
- * 最大正方形
+ * 统计全为1的正方形子矩阵
  */
 
 class Solution {
    public:
-    /**
-     * 状态表示：dp[i][j] 表示以i，j结尾的矩形的最大边长
-     * 状态计算：dp[i][j] = min(dp[i-1][j], min(dp[i][j-1], dp[i-1][j-1])) + 1
-     */
-    int maximalSquare(vector<vector<char>>& matrix) {
+    // 状态表示：dp[i][j]以i，j结尾的正方形的数量
+    // 状态计算：dp[i][j] = min(dp[i-1][j-1], min(dp[i - 1][j], dp[i][j-1])) + 1
+    int countSquares(vector<vector<int>>& matrix) {
         if (!matrix.size() || !matrix[0].size()) return 0;
         int m = matrix.size(), n = matrix[0].size();
+        int res = 0; // 记录总的正方形数量
         vector<vector<int>> dp(m, vector<int>(n));
-        int len = 0;
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                if (matrix[i][j] == '1') {
+                if (matrix[i][j]) {
                     if (!i || !j)
                         dp[i][j] = 1;
                     else
                         dp[i][j] = min(dp[i - 1][j - 1],
                                        min(dp[i - 1][j], dp[i][j - 1])) +
                                    1;
+                    res += dp[i][j];
                 }
-                len = max(len, dp[i][j]);
             }
         }
-        return len * len;
+        return res;
     }
 };

@@ -20,12 +20,8 @@ class Solution {
         for (int i = 1; i < n; i++) {
             for (int j = 0; j <= i; j++) {
                 dp[i & 1][j] = INT_MAX;
-                if (j > 0)
-                    dp[i & 1][j] =
-                        min(dp[i & 1][j], dp[i - 1 & 1][j - 1] + g[i][j]);
-                if (j < i)
-                    dp[i & 1][j] =
-                        min(dp[i & 1][j], dp[i - 1 & 1][j] + g[i][j]);
+                if (j > 0) dp[i & 1][j] = min(dp[i & 1][j], dp[i - 1 & 1][j - 1] + g[i][j]);
+                if (j < i) dp[i & 1][j] = min(dp[i & 1][j], dp[i - 1 & 1][j] + g[i][j]);
             }
         }
         long long res = INT_MAX;
