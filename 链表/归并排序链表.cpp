@@ -62,4 +62,49 @@ class Solution {
         }
         return dummy->next;
     }
+
+    /**
+     * 递归版本
+     * 时间复杂度：O(nlogn)
+     * 空间复杂度：O(logn)
+     */
+    ListNode* sortList(ListNode* head) {
+        if (!head || !head->next) return head;  // 边界条件
+        auto s = head;
+        auto f = head;
+        // 快慢指针找中间结点
+        while (!f || !f->next) {
+            f = f->next->next;
+            s = s->next;
+        }
+        auto t = s->next;  // 断开链表
+        s->next = nullptr;
+        auto l = sortList(head);        // 递归排序前部分
+        auto r = sortList(t);           // 递归排序后部分
+        auto dummy = new ListNode(-1);  // 构建虚拟结点
+        auto cur = dummy;
+        // 归并两部分
+        while (l && r) {
+            if (l->val < r->val) {
+                cur->next = l;
+                l = l->next;
+                cur = cur->next;
+            } else {
+                cur->next = r;
+                r = r->next;
+                cur = cur->next;
+            }
+        }
+        while (l) {
+            cur->next = l;
+            l = l->next;
+            cur = cur->next;
+        }
+        while (r) {
+            cur->next = r;
+            r = r->next;
+            cur = cur->next;
+        }
+        return dummy->next;
+    }
 };
