@@ -17,15 +17,15 @@ class Solution {
         vector<int> res(n, 1);
         int t = 1;
         // 前面部分的累积
-        for (int i = 1; i < n; i++) {
-            t *= nums[i - 1];
+        for (int i = 0; i < n; i++) {
             res[i] *= t;
+            t *= nums[i];
         }
         t = 1;
         // 后面部分的累积
-        for (int i = n - 2; i >= 0; i--) {
-            t *= nums[i + 1];
+        for (int i = n - 1; i >= 0; i--) {
             res[i] *= t;
+            t *= nums[i];
         }
         return res;
     }
