@@ -10,24 +10,20 @@ struct ListNode {
 
 class Solution {
    public:
+    /**
+     * 时间复杂度：O(n)
+     * 空间复杂度：O(1)
+     */
     ListNode* reverseKGroup(ListNode* head, int k) {
         if (!head) return head;
-        ListNode *a, *b;
-        a = b = head;
-        // 寻找区间端点，如果不够k，则直接返回
+        auto a = head, b = head;
+        // 寻找区间
         for (int i = 0; i < k; i++) {
-            if (!b) return head;
+            if (!b) return head; // 不够k
             b = b->next;
         }
-        auto newHead = reverse(a, b);
-        a->next = reverseKGroup(b, k);
-        return newHead;
-    }
 
-    /**
-     * 翻转区间
-     */
-    ListNode* reverse(ListNode* a, ListNode* b) {
+        // 翻转区间
         ListNode* pre = nullptr;
         auto cur = a;
         while (cur != b) {
@@ -36,6 +32,7 @@ class Solution {
             pre = cur;
             cur = nx;
         }
+        a->next = reverseKGroup(b, k);
         return pre;
     }
 };

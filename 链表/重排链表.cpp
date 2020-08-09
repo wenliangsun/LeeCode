@@ -12,6 +12,8 @@ class Solution {
    public:
     /**
      * 使用辅助数组
+     * 时间复杂度：O(n)
+     * 空间复杂度：O(1)
      */
     void reorderList(ListNode* head) {
         vector<ListNode*> tmp;
@@ -29,6 +31,8 @@ class Solution {
 
     /**
      * 找中点 翻转后面部分，再合并
+     * 时间复杂度：O(n)
+     * 空间复杂度：O(1)
      */
     void reorderList(ListNode* head) {
         if (!head) return;

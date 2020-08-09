@@ -10,6 +10,10 @@ struct ListNode {
 
 class Solution {
    public:
+    /**
+     * 时间复杂度：O(n)
+     * 空间复杂度：O(1)
+     */
     ListNode* partition(ListNode* head, int x) {
         if (!head) return nullptr;
         ListNode* l1 = new ListNode(0); // 小于x的结点
@@ -24,7 +28,6 @@ class Solution {
                 p2->next = head;
                 p2 = p2->next;
             }
-
             head = head->next;
         }
         // 特判

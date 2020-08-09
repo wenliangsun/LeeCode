@@ -10,6 +10,10 @@ struct ListNode {
 
 class Solution {
    public:
+    /**
+     * 时间复杂度：O(n)
+     * 空间复杂度：O(1)
+     */
     ListNode* deleteDuplicates(ListNode* head) {
         auto cur = head;
         while (cur) {

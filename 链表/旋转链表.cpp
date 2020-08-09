@@ -10,6 +10,10 @@ struct ListNode {
 
 class Solution {
    public:
+    /**
+     * 时间复杂度：O(n)
+     * 空间复杂度：O(1)
+     */
     ListNode* rotateRight(ListNode* head, int k) {
         if (!head) return head;
         int len = 0;
