@@ -1,8 +1,4 @@
-#include <cstring>
-#include <iostream>
-#include <queue>
-#include <sstream>
-
+#include <bits/stdc++.h>
 /**
  * 题目：公司的程序员不够用了，决定把产品经理都转变为程序员以解决开发时间长的问题。在给定的矩形网格中，每个单元格可以有以下三个值之一：
  * 值0代表空单元格;
@@ -11,7 +7,7 @@
  * 每分钟，任何与程序员(在4个正方向上)相邻的产品经理都会变成程序员。
  * 返回直到单元格中没有产品经理为止所必须经过的最小分钟数。
  * 如果不可能，返回-1。
- * 
+ *
  * 思路：多源最短路径问题  BFS！！！
  */
 
@@ -19,11 +15,11 @@ using namespace std;
 
 const int N = 15;
 
-typedef pair<int, int> PII; // 存储位置
+typedef pair<int, int> PII;  // 存储位置
 
 int n, m;
-int g[N][N]; // 分布
-int dist[N][N]; // 距离
+int g[N][N];     // 分布
+int dist[N][N];  // 距离
 
 int bfs() {
     queue<PII> que;
@@ -73,6 +69,5 @@ int main() {
         m = k;
         n++;
     }
-
     cout << bfs() << endl;
 }
