@@ -19,9 +19,9 @@ class Solution {
         vector<int> pre(n + 1);
         for (int i = 1; i <= n; i++) pre[i] = pre[i - 1] + nums[i - 1];
         int res = 0;
-        for (int i = 1; i <= n; i++) {
-            for (int j = i; j <= n; j++) {
-                if (pre[j] - pre[i - 1] == k) res++;
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j <= n; j++) {
+                if (pre[j] - pre[i] == k) res++;
             }
         }
         return res;
