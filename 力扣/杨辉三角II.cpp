@@ -8,16 +8,19 @@ using namespace std;
 
 class Solution {
    public:
+    /**
+     * 空间还可以优化
+     */ 
     vector<int> getRow(int rowIndex) {
         vector<vector<int>> res;
         for (int i = 0; i <= rowIndex; i++) {
             vector<int> tmp;
-            tmp.push_back(1);
-            for (int j = 0; j < i - 1; j++) {
-                int x = res[i - 1][j] + res[i - 1][j + 1];
-                tmp.push_back(x);
+            for (int j = 0; j <= i; j++) {
+                if (j == 0 || j == i)
+                    tmp.push_back(1);
+                else
+                    tmp.push_back(res[i - 1][j - 1] + res[i - 1][j]);
             }
-            if(i != 0)tmp.push_back(1);
             res.push_back(tmp);
         }
         return res[rowIndex];

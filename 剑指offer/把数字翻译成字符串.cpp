@@ -18,7 +18,7 @@ class Solution {
         }
         for (int i = idx; i < s.size(); i++) {
             string cur = s.substr(idx, i - idx + 1);
-            if (idx < i && cur[0] == '0') continue;
+            if (idx < i && cur[0] == '0') break;
             int t = stoi(cur);
             if (t > 25) break;
             dfs(s, i + 1);

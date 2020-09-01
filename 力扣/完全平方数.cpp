@@ -24,6 +24,25 @@ class Solution {
         return dp[n];
     }
 
-    // 贪心 + 广搜
-    int numSquares(int n) {}
+    // 广搜
+    int numSquares(int n) {
+        queue<int> q;
+        vector<int> dist(n + 1, INT_MAX);  // 0点到n点的距离
+        q.push(0);
+        dist[0] = 0;
+        while (q.size()) {
+            int t = q.front();
+            q.pop();
+            if (t == n) return dist[t];
+            for (int i = 1; t + i * i <= n; i++) {
+                int j = t + i * i;
+                // 更新距离
+                if (dist[j] > dist[t] + 1) {
+                    dist[j] = dist[t] + 1;
+                    q.push(j);
+                }
+            }
+        }
+        return 0;
+    }
 };

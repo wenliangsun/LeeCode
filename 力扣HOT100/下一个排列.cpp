@@ -3,7 +3,7 @@
 using namespace std;
 
 /**
- * 力扣31：下一个排列
+ * 下一个排列
  */
 
 class Solution {
@@ -45,6 +45,5 @@ class Solution {
             }
             swap(nums[l], nums[pos - 1]);
         }
-
     }
 };

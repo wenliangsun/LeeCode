@@ -11,8 +11,22 @@ class Solution {
     vector<int> exchange(vector<int>& nums) {
         int idx = nums.size() - 1;
         for (int i = 0; i < nums.size(); i++) {
-            // 这个操作注意下一
-            while (nums[i] % 2 == 0 && i > idx) swap(nums[i], nums[idx--]);
+            // 这个操作注意下
+            while (nums[i] % 2 == 0 && i < idx) swap(nums[i], nums[idx--]);
+        }
+        return nums;
+    }
+
+    /**
+     * 快慢指针
+     * 奇数和偶数的相对位置不变
+     */
+    vector<int> exchange(vector<int>& nums) {
+        for (int i = 0, j = 0; j < nums.size(); j++) {
+            if (nums[j] & 1) {
+                swap(nums[i], nums[j]);
+                i++;
+            }
         }
         return nums;
     }

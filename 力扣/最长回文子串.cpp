@@ -16,34 +16,24 @@ class LeeCode05 {
      * 动态规划方法，自底至上
      */
     string longestPalindrome(string s) {
-        if (s.empty() || s.size() == 1) {
-            return s;
-        }
-        bool temp[s.size() + 1][s.size() + 1];  // 记录数组
-        for (int i = 0; i <= s.size(); i++) {
-            for (int j = 0; j <= s.size(); j++) {
-                temp[i][j] = false;
+        int n = s.size(), len = 0;
+        string res;
+        vector<vector<bool>> dp(n, vector<bool>(n));
+        for (int j = 0; j < n; j++) {
+            dp[j][j] = true;
+            if (!len) {
+                len = 1;
+                res = s[0];
             }
-        }
-        int maxlen = 0;  // 最大长度
-        string res;      // 最长回文
-        for (int i = 0; i < s.size(); i++) {
-            temp[i][i] = true;  // 每一个单个字符都是回文
-            if (maxlen == 0) {  //设置初始回文和长度。
-                res = s[i];
-                maxlen = 1;
-            }
-            for (int j = 0; j < i; j++) {  // 表示当前字符串的长度
-                // 判断是否是回文!!!
-                temp[j][i] =
-                    (s[i] == s[j] && (i - j < 2 || temp[j + 1][i - 1]));
-                if (temp[j][i]) {  // 如果是回文，更新回文长度
-                    maxlen = max(maxlen, i - j + 1);
-                    res = s.substr(j, maxlen);
+            for (int i = 0; i < j; i++) {
+                dp[i][j] = (s[i] == s[j]) && (j - i < 2 || dp[i + 1][j - 1]);
+                if (dp[i][j] && len < j - i + 1) {
+                    len = j - i + 1;
+                    res = s.substr(i, len);
                 }
-                cout << res << endl;
             }
         }
+        return res;
     }
 
     /**
@@ -60,11 +50,6 @@ class LeeCode05 {
         }
         return res;
     }
-
-    /**
-     * Manacher 法
-     */
-    string longestPalindrome03(string s) {}
 
    private:
     /**
