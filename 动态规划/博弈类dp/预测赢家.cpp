@@ -17,7 +17,7 @@ class Solution {
         int n = nums.size();
         return score(nums, 0, n - 1) >= 0;
     }
-    // 暴力递归
+    // 暴力递归 表示先手得分和后手得分之差
     int score(vector<int>& nums, int l, int r) {
         if (l == r) return nums[l];
         return max(nums[l] - score(nums, l + 1, r),
@@ -41,7 +41,7 @@ class Solution {
     }
     /**
      * 动态规划
-     * 状态表示：dp[i][j]表示i，j区间我可以获得的最大相对分数
+     * 状态表示：dp[i][j]表示当玩家面对i，j区间时可以获得的最大相对分数
      * 状态计算：需要斜着遍历数组
      */
     bool PredictTheWinner(vector<int>& nums) {

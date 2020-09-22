@@ -2,24 +2,25 @@
 
 using namespace std;
 
-string palindrome(string s, int l, int r) {
-    while (l >= 0 && r < s.size() && s[l] == s[r]) {
-        l--, r++;
-    }
-    return s.substr(l + 1, r - l - 1);
-}
-
-int main() {
-    string s;
-    while (cin >> s) {
+class Solution {
+public:
+    /**
+     * 枚举所有可能的回文中心，总共有2*n-1个
+     * 时间复杂度：O(n^2)
+     * 空间复杂度：O(1)
+     */
+    string longestPalindrome(string s) {
+        int n = s.size();
+        int len = 0;
         string res;
-        for (int i = 0; i < s.size(); i++) {
-            string s1 = palindrome(s, i, i);
-            string s2 = palindrome(s, i, i + 1);
-            res = res.size() > s1.size() ? res : s1;
-            res = res.size() > s2.size() ? res : s2;
+        for (int i = 0; i < 2 * n - 1; i++) {
+            int l = i / 2, r = l + i % 2; // 注意计算左右起点
+            while (l >= 0 && r < n && s[l] == s[r]) l--,r++;
+            if (r - l - 1 > len) {
+                len = r - l - 1;
+                res = s.substr(l + 1, len);
+            }
         }
-        cout << res << endl;
+        return res;
     }
-    return 0;
-}
+};

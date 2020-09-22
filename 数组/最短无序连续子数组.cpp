@@ -53,6 +53,4 @@ class Solution {
         }
         return e - b >= 0 ? e - b + 1 : 0;
     }
-
-    
 };

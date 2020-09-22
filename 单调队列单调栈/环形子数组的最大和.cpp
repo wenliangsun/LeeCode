@@ -21,7 +21,7 @@ class Solution {
         deque<int> q;
         q.push_back(0);  //  前缀和为0的情况
         for (int i = 1; i <= 2 * n; i++) {
-            // i -n > q.front()) 如何理解？？
+            // i - n > q.front()) 最长是n
             if (q.size() && i - n > q.front()) q.pop_front();
             // 更新答案
             if (q.size()) res = max(res, sum[i] - sum[q.front()]);

@@ -735,8 +735,35 @@ class Solution {
 class Solution {
    public:
     /**
+     * 思路：二分查找法
+     * 利用扑克牌的一种玩法，给定一把牌，我们只能把点数小的压在点数大的上面，(可用二分法找应该放置的堆)
+     * 如果当前牌的点数较大且没有可以放置的堆，则新建一个堆，把这张牌放上去。
+     * 如果当前牌有多个堆可供选择，则放置在最左侧的堆。
+     * 最终牌的堆数就是最长递增子序列的长度。
+     * 时间复杂度：O(nlogn)
+     */
+    int lengthOfLIS(vector<int>& nums) {
+        vector<int> dp(nums.size());
+        int len = 0;
+        for (int i = 0; i < nums.size(); i++) {
+            int l = 0, r = len;
+            while (l < r) {
+                int mid = l + r >> 1;
+                if (dp[mid] >= nums[i])
+                    r = mid;
+                else
+                    l = mid + 1;
+            }
+            if (l == len) len++;
+            dp[l] = nums[i];
+        }
+        return len;
+    }
+
+    /**
      * 状态表示：dp[i] 表示以i为终点的上升子序列的集合  其中的值表示长度的最大值
      * 状态计算：dp[i] = dp[j]+1 当nums[j]<nums[i]的时候
+     *
      * 时间复杂度：O(n^2)
      */
     int lengthOfLIS1(vector<int>& nums) {
@@ -753,29 +780,104 @@ class Solution {
     }
 
     /**
-     * 思路：二分查找法
-     * 利用扑克牌的一种玩法，给定一把牌，我们只能把点数小的压在点数大的上面，(可用二分法找应该放置的堆)
-     * 如果当前牌的点数较大且没有可以放置的堆，则新建一个堆，把这张牌放上去。
-     * 如果当前牌有多个堆可供选择，则放置在最左侧的堆。
-     * 最终牌的堆数就是最长递增子序列的长度。
-     * 时间复杂度：O(nlogn)
+     * 输出最长增长子序列，输出任意一个
+     * 反向寻找
+     * 时间复杂度：O(n^2)
+     * 空间复杂度：O(n)
      */
-    int lengthOfLIS1(vector<int>& nums) {
-        vector<int> dp(nums.size());
+    vector<int> lengthOfLIS2(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> dp(n), pos(n);
+        for (int i = 0; i < n; i++) {
+            dp[i] = 1;
+            pos[i] = i;
+            for (int j = 0; j < i; j++) {
+                if (nums[j] < nums[i] && dp[j] + 1 > dp[i]) {
+                    dp[i] = dp[j] + 1;
+                    pos[i] = j;
+                }
+            }
+        }
+        int len = 0, p = 0; // 找最大位置
+        for (int i = 0; i < n; i++) {
+            if (dp[i] > len) {
+                len = dp[i];
+                p = i;
+            }
+        }
+        vector<int> res(len);
+        int idx = len - 1; // 反向寻找
+        while (pos[p] != p || idx >= 0) {
+            res[idx--] = nums[p];
+            p = pos[p];
+        }
+        return res;
+    }
+
+    /**
+     * 输出字典序最小的最长增长子序列
+     * 堆纸牌的方法，用一个数组记录每一个数字放在哪一堆上
+     * 然后从后向前遍历数组去寻找每一堆上的数字
+     * 时间复杂度：O(nlogn)
+     * 空间复杂度：O(n)
+     */
+    vector<int> lengthOfLIS3(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> dp(n), pos(n);
         int len = 0;
-        for (int i = 0; i < nums.size(); i++) {
+        for (int i = 0; i < n; i ++) {
             int l = 0, r = len;
             while (l < r) {
-                int mid = l + r >> 1;
-                if (dp[mid] >= nums[i])
-                    r = mid;
-                else
-                    l = mid + 1;
+                int mid = (l + r) >> 1;
+                if (dp[mid] >= nums[i]) r = mid;
+                else l = mid + 1;
             }
             if (l == len) len++;
             dp[l] = nums[i];
+            pos[i] = l; // 记录当前数字放在第几堆上
         }
-        return len;
+        vector<int> res(len, INT_MAX); // 答案数组
+        int idx = len - 1; // 答案数组的索引
+        for (int i = n - 1; i >= 0; i--) {
+            if (pos[i] == idx) { // 如果索引相同，则说明该数字是答案数组中当前位置的数字。
+                res[idx] = min(res[idx], nums[i]);
+                idx--;
+            }
+        }
+        return res;
+    }
+};
+```
+
+## 交错字符串(困难)
+
+给定三个字符串 s1, s2, s3, 验证 s3 是否是由 s1 和 s2 交错组成的。[交错字符串](https://leetcode-cn.com/problems/interleaving-string/)
+
+### 参考代码
+
+```c++
+class Solution {
+public:
+    /**
+     * 动态规划
+     * 状态表示：dp[i][j]表示s1的前i个字符和s2的前j个字符能否组成s3的前i+j个字符
+     * 状态计算：根据s3的最后一个字符是s1提供还是s2提供，分两种情况：
+     *        (1)s3的最后一个字符来自s1的情况：dp[i][j] = dp[i][j] || (dp[i - 1][j]&&s1[i - 1] == s3[i + j - 1]);
+     *        (2)s3的最后一个字符来自s2的情况：dp[i][j] = dp[i][j] || (dp[i - 1][j]&&s2[j - 1] == s3[i + j - 1])
+     */
+    bool isInterleave(string s1, string s2, string s3) {
+        int m = s1.size(), n = s2.size();
+        if (m + n != s3.size()) return false; // 如果长度不匹配，直接返回false
+        vector<vector<bool>> dp(m + 1, vector<bool>(n + 1));
+        dp[0][0] = true; // base case
+        for (int i = 0; i <= m; i++) {
+            for (int j = 0; j <= n; j++) {
+                int idx = i + j - 1;
+                if (i > 0) dp[i][j] = dp[i][j] || (dp[i - 1][j] && s1[i - 1] == s3[idx]);
+                if (j > 0) dp[i][j] = dp[i][j] || (dp[i][j - 1] && s2[j - 1] == s3[idx]);
+            }
+        }
+        return dp[m][n];
     }
 };
 ```
@@ -875,6 +977,59 @@ class Solution {
             }
         }
         return dp[n];
+    }
+};
+```
+
+## 摆动排序(中等)
+
+如果连续数字之间的差严格地在正数和负数之间交替，则数字序列称为摆动序列。第一个差（如果存在的话）可能是正数或负数。少于两个元素的序列也是摆动序列。例如， [1,7,4,9,2,5] 是一个摆动序列，因为差值 (6,-3,5,-7,3) 是正负交替出现的。相反, [1,4,7,2,5] 和 [1,7,4,5,5] 不是摆动序列，第一个序列是因为它的前两个差值都是正数，第二个序列是因为它的最后一个差值为零。给定一个整数序列，返回作为摆动序列的最长子序列的长度。 通过从原始序列中删除一些（也可以不删除）元素来获得子序列，剩下的元素保持其原始顺序。[摆动排序](https://leetcode-cn.com/problems/wiggle-subsequence/)
+
+### 参考代码
+
+```c++
+class Solution {
+public:
+    /**
+     * 动态规划：
+     * up[i]表示以i为结尾的且上升的摆动序列的长度
+     * down[i]表示以i为结尾的且下降的摆动序列的长度
+     * 类似最长增长子序列的更新方式
+     * 时间复杂度：O(n^2)
+     * 空间复杂度：O(n)
+     */
+    int wiggleMaxLength(vector<int>& nums) {
+        int n = nums.size();
+        if (n < 2) return n;
+        vector<int> up(n), down(n);
+        for (int i = 0; i < n; i++) {
+            up[i] = 1, down[i] = 1;
+            for (int j = 0; j < i; j++) {
+                if (nums[i] > nums[j]) up[i] = max(up[i], down[j] + 1);
+                else if (nums[i] < nums[j]) down[i] = max(down[i], up[j] + 1);
+            }
+        }
+        return max(up[n - 1], down[n - 1]);
+    }
+
+    /**
+     * 考虑up一定是从down(除初始状态)中产生的，并且此时的down是最大的.
+     * 假设down[i]表示的最远末尾元素下标刚好是i，则up[i+1] = down[i] + 1;
+     * 假设down[i]表示的最远末尾元素下标小于i，记为j，则i到j之间一定是递增的，因为如果有递减，
+     * 则down[i]表示的最远末尾元素就不是j了。所以down[j:i]一直都是down[j]，所以此时依然满足up[i+1] = down[i]+1.
+     * 其余情况类似。注意到down和up只和前一个状态有关，所以我们可以优化存储，分别用一个变量即可。
+     * 时间复杂度：O(n)
+     * 空间复杂度：O(1)
+     */
+    int wiggleMaxLength(vector<int>& nums) {
+        int n = nums.size();
+        if (n < 2) return n;
+        int up = 1, down = 1;
+        for (int i = 1; i < n; i++) {
+            if (nums[i] < nums[i - 1]) down = up + 1;
+            else if (nums[i] > nums[i - 1]) up = down + 1;
+        }
+        return max(up, down);
     }
 };
 ```

@@ -2,7 +2,40 @@
 
 using namespace std;
 
-int search(string s, string p) {
+/**
+ * 时间复杂度：O(M+N)
+ */
+int search(string& s, string& p) {
+    int m = p.size(), n = s.size();
+    vector<int> fail(m, -1);
+    // 构建fail数组
+    for (int i = 1; i < m; i++) {
+        int j = fail[i - 1];
+        while (j != -1 && p[j + 1] != p[i]) j = fail[j];
+        if (p[j + 1] == p[i]) fail[i] = j + 1;
+    }
+
+    int match = -1;
+    // 匹配
+    for (int i = 0; i < n; i++) {
+        while (match != -1 && p[match + 1] != s[i])
+            match = fail[match];     // 如果不匹配，往前调
+        if (p[match + 1] == s[i]) {  // 如果匹配
+            match++;
+            if (match == m - 1) {
+                cout << i - match << endl;
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+/**
+ * 动态规划版
+ * 状态机
+ */
+int search2(string s, string p) {
     int M = p.size(), N = s.size();
     // 动态数组  dp[状态][字符] = 下一个状态
     vector<vector<int>> dp(M, vector<int>(256, 0));
@@ -31,9 +64,7 @@ int search(string s, string p) {
 }
 
 int main() {
-    string s, p;
-    while (cin >> s >> p) {
-        cout << search(s, p) << endl;
-    }
+    string s = "xyxyyxxyx", p = "yyx";
+    cout << search(s, p) << endl;
     return 0;
 }

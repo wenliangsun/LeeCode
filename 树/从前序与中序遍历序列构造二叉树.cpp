@@ -19,8 +19,7 @@ class Solution {
 
    private:
     unordered_map<int, int> pos;  // 在中序遍历中查找根节点的位置 时间复杂度是O(1)
-    TreeNode* dfs(vector<int>& preorder, vector<int>& inorder, int pl, int pr,
-                  int il, int ir) {
+    TreeNode* dfs(vector<int>& preorder, vector<int>& inorder, int pl, int pr, int il, int ir) {
         if (pl > pr) return nullptr;
         int val = preorder[pl];
         int k = pos[val];

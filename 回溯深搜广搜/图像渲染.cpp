@@ -11,37 +11,22 @@ class LeeCode733 {
     /**
      * 思路：回溯法
      */
-    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc,
-                                  int newColor) {
-        int oriColor = image[sr][sc];
-        fill(image, sr, sc, oriColor, newColor);
+    int m, n;
+    int dx[4] = {0, -1, 0, 1}, dy[4] = {-1, 0, 1, 0};
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) {
+        m = image.size(), n = image[0].size();
+        int oldColor = image[sr][sc];
+        dfs(image, sr, sc, newColor, oldColor);
         return image;
     }
 
-   private:
-    void fill(vector<vector<int>>& image, int x, int y, int oriColor,
-              int newColor) {
-        int rows = image.size();
-        int cols = image[0].size();
-        // 边界情况
-        if (x < 0 || y < 0 || x >= rows || y >= cols) {
-            return;
-        }
-        // 不需要染色情况
-        if (image[x][y] != oriColor) {
-            return;
-        }
-        // 已经染过了
-        if (image[x][y] == -1) {
-            return;
-        }
-        // 标记
-        image[x][y] = -1;
-        fill(image, x - 1, y, oriColor, newColor);
-        fill(image, x, y - 1, oriColor, newColor);
-        fill(image, x + 1, y, oriColor, newColor);
-        fill(image, x, y + 1, oriColor, newColor);
-        // 将标记换成新的颜色
-        image[x][y] = newColor;
-    }
+   void dfs(vector<vector<int>>& image, int x, int y, int newColor, int oldColor) {
+       image[x][y] = -1;
+       for (int i = 0; i < 4; i++) {
+            int a = x + dx[i], b = y + dy[i];
+            if (a >= 0 && a < m && b >= 0 && b < n && image[a][b] == oldColor) 
+                dfs(image, a, b, newColor, oldColor);
+       }
+       image[x][y] = newColor;
+   }
 };

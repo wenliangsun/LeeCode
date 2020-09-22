@@ -27,8 +27,7 @@ class LeeCode39 {
     /**
      * 需要对数组排序
      */
-    void DFS1(vector<int> candidates, int residue, int begin,
-              vector<int> path) {
+    void DFS1(vector<int> candidates, int residue, int begin, vector<int> path) {
         // 当剩余数为0时，表示当前路径可行
         if (residue == 0) {
             res.push_back(path);
@@ -49,8 +48,7 @@ class LeeCode39 {
     /**
      * 不需要对数组排序
      */
-    void DFS2(vector<int> candidates, int residue, int begin,
-              vector<int> path) {
+    void DFS2(vector<int> candidates, int residue, int begin, vector<int> path) {
         if (residue == 0) {
             res.push_back(path);
             return;

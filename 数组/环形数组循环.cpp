@@ -9,10 +9,6 @@ using namespace std;
 class Solution {
    public:
     bool circularArrayLoop(vector<int>& nums) {
-        if (nums.empty()) return false;
-        int n = nums.size();
-        for (int i = 0; i < n; i++) {
-            
-        }
+       
     }
 };
